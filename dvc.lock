@@ -1,0 +1,220 @@
+schema: '2.0'
+stages:
+  test:
+    cmd: python scripts/run_checks.py
+    deps:
+    - path: frontend
+      hash: md5
+      md5: e67f9bd6e89ad0b46d29f6211e2e5a3c.dir
+      size: 11567
+      nfiles: 1
+    - path: gateway
+      hash: md5
+      md5: 7bcf802b40cadf3a944e04eaa1208462.dir
+      size: 20018
+      nfiles: 8
+    - path: scripts/run_checks.py
+      hash: md5
+      md5: 4fc6d6faeb3ce9494e9ef66af78b03a6
+      size: 1575
+    - path: src
+      hash: md5
+      md5: cf0449a58a5edd316ae41361507ccd64.dir
+      size: 28683
+      nfiles: 10
+    - path: tests
+      hash: md5
+      md5: a954ce707cb3b967148bcf043d2aec4c.dir
+      size: 11139
+      nfiles: 8
+    - path: trainer
+      hash: md5
+      md5: 7b202e46847029045425d635f4f05331.dir
+      size: 3045
+      nfiles: 1
+    outs:
+    - path: reports/ci_summary.json
+      hash: md5
+      md5: 994e68b7b48bf90055716633ee7c2c15
+      size: 108
+    - path: reports/test_output.txt
+      hash: md5
+      md5: e4bb382525255fbdd13b6b43ce03fc84
+      size: 3634
+  ingest:
+    cmd: python src/ingest.py
+    deps:
+    - path: data/raw/train
+      hash: md5
+      md5: b4b67e24ce7345f60ad8351e604a854f.dir
+      size: 1491760530
+      nfiles: 3
+    - path: label_map.yaml
+      hash: md5
+      md5: e81301b5fbb5b144b2ed244286897edb
+      size: 1027
+    - path: reports/ci_summary.json
+      hash: md5
+      md5: 994e68b7b48bf90055716633ee7c2c15
+      size: 108
+    - path: src/common.py
+      hash: md5
+      md5: 04814a67248bde148d763cb075a45230
+      size: 1614
+    - path: src/ingest.py
+      hash: md5
+      md5: 907d49792f67e335f1d1292f8e2e3e87
+      size: 4313
+    - path: src/text_utils.py
+      hash: md5
+      md5: 9fe4220df71bf4ba2cab62dc46b1d856
+      size: 786
+    params:
+      params.yaml:
+        ingest:
+          workers: 2
+          chunk_size: 5000
+        paths:
+          raw_train_dir: data/raw/train
+          raw_prod_dir: data/raw/production
+          interim: data/interim/clean.parquet
+          train: data/processed/train.parquet
+          test: data/processed/test.parquet
+          baseline: data/processed/baseline.json
+    outs:
+    - path: data/interim/clean.parquet
+      hash: md5
+      md5: e852232ebd31b75a418c66531d23a07b
+      size: 328749433
+    - path: data/interim/ingest_metrics.json
+      hash: md5
+      md5: cef7f8c057b5d4a25e0fac7027275394
+      size: 294
+  validate:
+    cmd: python src/validate_data.py
+    deps:
+    - path: data/interim/clean.parquet
+      hash: md5
+      md5: e852232ebd31b75a418c66531d23a07b
+      size: 328749433
+    - path: src/validate_data.py
+      hash: md5
+      md5: ad9559bd7fe20b9caff10d6c09b176c7
+      size: 3481
+    params:
+      params.yaml:
+        validate:
+          min_rows: 1000
+          min_classes: 2
+          min_words: 5
+          max_short_share: 0.2
+          max_duplicate_share: 0.3
+          max_imbalance_ratio: 500
+    outs:
+    - path: data/interim/data_quality.json
+      hash: md5
+      md5: 850c567690a926ae1ec47a70dd86449c
+      size: 1396
+  prepare:
+    cmd: python src/prepare.py
+    deps:
+    - path: data/interim/clean.parquet
+      hash: md5
+      md5: e852232ebd31b75a418c66531d23a07b
+      size: 328749433
+    - path: data/interim/data_quality.json
+      hash: md5
+      md5: 850c567690a926ae1ec47a70dd86449c
+      size: 1396
+    - path: src/prepare.py
+      hash: md5
+      md5: d1938974b0f043682af0e6d770ffbef1
+      size: 2313
+    params:
+      params.yaml:
+        prepare:
+          min_class_rows: 2000
+          max_rows_per_class: 25000
+          test_size: 0.2
+          seed: 42
+          vocab_min_count: 3
+          length_sample: 5000
+    outs:
+    - path: data/processed/baseline.json
+      hash: md5
+      md5: 392fa588e92d008640bac4fe21e8d4f3
+      size: 358660
+    - path: data/processed/test.parquet
+      hash: md5
+      md5: a728968d5e127d34211ee150660463fc
+      size: 23360984
+    - path: data/processed/train.parquet
+      hash: md5
+      md5: d50582477220cc8e95c05cf95ebc1bcc
+      size: 93401568
+  train:
+    cmd: python src/train.py
+    deps:
+    - path: data/processed/test.parquet
+      hash: md5
+      md5: a728968d5e127d34211ee150660463fc
+      size: 23360984
+    - path: data/processed/train.parquet
+      hash: md5
+      md5: d50582477220cc8e95c05cf95ebc1bcc
+      size: 93401568
+    - path: src/model_wrapper.py
+      hash: md5
+      md5: 56d7e266d92dce512713b78c2d54df91
+      size: 1553
+    - path: src/train.py
+      hash: md5
+      md5: 235154b9f0724820991b12f1476e01e1
+      size: 8671
+    params:
+      params.yaml:
+        features:
+          max_features: 50000
+          ngram_min: 1
+          ngram_max: 2
+        mlflow:
+          experiment: autoroute
+          model_name: AutoRouteModel
+          alias: champion
+        train:
+          model_type: logistic_regression
+          C: 1
+          class_weight: balanced
+    outs:
+    - path: metrics.json
+      hash: md5
+      md5: f8e9b1496a517ba2bc8eb6198f2a7226
+      size: 146
+    - path: models/run_info.json
+      hash: md5
+      md5: 3837bcbefe8918d5e59cd891182af6b5
+      size: 73
+  evaluate:
+    cmd: python src/evaluate.py
+    deps:
+    - path: metrics.json
+      hash: md5
+      md5: f8e9b1496a517ba2bc8eb6198f2a7226
+      size: 146
+    - path: models/run_info.json
+      hash: md5
+      md5: 3837bcbefe8918d5e59cd891182af6b5
+      size: 73
+    - path: src/evaluate.py
+      hash: md5
+      md5: 77572dc94f6cc98e538db8ff7e6932e6
+      size: 2019
+    params:
+      params.yaml:
+        evaluate:
+          min_macro_f1: 0.75
+    outs:
+    - path: models/evaluation.json
+      hash: md5
+      md5: 6e953dee642a76c94c3173d86418a422
+      size: 170

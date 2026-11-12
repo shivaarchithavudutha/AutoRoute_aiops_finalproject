@@ -1,0 +1,12 @@
+# MLflow tracking server + model server image
+mlflow==2.22.0
+SQLAlchemy==2.0.36
+alembic==1.14.0
+scikit-learn==1.5.2
+pandas==2.2.3
+numpy==1.26.4
+joblib==1.4.2
+pyarrow==17.0.0
+cryptography
+fastapi==0.115.6
+starlette==0.41.3

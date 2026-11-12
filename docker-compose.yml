@@ -1,0 +1,113 @@
+# AutoRoute: seven app services + Prometheus/Grafana. Start with:  docker compose up -d --build
+name: autoroute
+
+x-mlflow-build: &mlflow-build
+  build:
+    context: .
+    dockerfile: Dockerfile.mlflow
+
+services:
+  mlflow:
+    <<: *mlflow-build
+    image: autoroute-mlflow
+    command: >
+      mlflow server --host 0.0.0.0 --port 5000
+      --backend-store-uri sqlite:////mlflow/mlflow.db
+      --artifacts-destination /mlflow/artifacts --serve-artifacts
+    volumes: ["mlflow_data:/mlflow"]
+    ports: ["5000:5000"]
+    mem_limit: 768m
+    healthcheck:
+      test: ["CMD", "python", "-c", "import urllib.request as u; u.urlopen('http://localhost:5000/health')"]
+      interval: 10s
+      timeout: 5s
+      retries: 12
+    restart: unless-stopped
+
+  model-server:
+    image: autoroute-mlflow
+    depends_on:
+      mlflow: {condition: service_healthy}
+    entrypoint: ["/app/serving/entrypoint.sh"]
+    environment:
+      MLFLOW_TRACKING_URI: http://mlflow:5000
+      MODEL_NAME: AutoRouteModel
+      MODEL_ALIAS: champion
+      PORT: "5001"
+      MODEL_ENCRYPTION_KEY: ${MODEL_ENCRYPTION_KEY:-}
+    ports: ["5001:5001"]
+    mem_limit: 1g
+    restart: unless-stopped
+
+  gateway:
+    build: {context: ., dockerfile: Dockerfile.gateway}
+    depends_on:
+      mlflow: {condition: service_healthy}
+    environment:
+      MODEL_SERVER_URL: http://model-server:5001
+      MLFLOW_TRACKING_URI: http://mlflow:5000
+      TRAINER_URL: http://trainer:8100
+      FRONTEND_URL: http://frontend:8501
+      AUTO_RETRAIN_ON_DRIFT: ${AUTO_RETRAIN_ON_DRIFT:-false}
+      BASELINE_PATH: /app/data/processed/baseline.json
+      API_KEY: ${API_KEY:-}
+    volumes:
+      - ./data/processed:/app/data/processed:ro
+    ports: ["8000:8000"]
+    mem_limit: 1g
+    restart: unless-stopped
+
+  frontend:
+    build: {context: ., dockerfile: Dockerfile.frontend}
+    depends_on: [gateway]
+    environment:
+      API_URL: http://gateway:8000        # the ONLY link between UI and backend
+      API_KEY: ${API_KEY:-}
+    ports: ["8501:8501"]
+    mem_limit: 512m
+    restart: unless-stopped
+
+  trainer:
+    build: {context: ., dockerfile: Dockerfile.trainer}
+    depends_on:
+      mlflow: {condition: service_healthy}
+    user: "${HOST_UID:-1000}:${HOST_GID:-1000}"
+    environment:
+      MLFLOW_TRACKING_URI: http://mlflow:5000
+      MODEL_ENCRYPTION_KEY: ${MODEL_ENCRYPTION_KEY:-}
+      GIT_CONFIG_COUNT: "1"
+      GIT_CONFIG_KEY_0: safe.directory
+      GIT_CONFIG_VALUE_0: "*"
+    volumes:
+      - .:/repo
+    ports: ["8100:8100"]
+    shm_size: 2gb            # Ray's object store lives in shared memory
+    mem_limit: 3g
+    cpus: 2.0                # keeps training from starving the other services
+    restart: unless-stopped
+
+  prometheus:
+    image: prom/prometheus:v2.55.1
+    volumes:
+      - ./monitoring/prometheus.yml:/etc/prometheus/prometheus.yml:ro
+      - ./monitoring/alert_rules.yml:/etc/prometheus/alert_rules.yml:ro
+    ports: ["9090:9090"]
+    mem_limit: 512m
+    restart: unless-stopped
+
+  grafana:
+    image: grafana/grafana:11.3.1
+    depends_on: [prometheus]
+    environment:
+      GF_AUTH_ANONYMOUS_ENABLED: "true"
+      GF_AUTH_ANONYMOUS_ORG_ROLE: Viewer
+      GF_SECURITY_ADMIN_PASSWORD: admin
+    volumes:
+      - ./monitoring/grafana/provisioning:/etc/grafana/provisioning:ro
+      - ./monitoring/grafana/dashboards:/var/lib/grafana/dashboards:ro
+    ports: ["3000:3000"]
+    mem_limit: 512m
+    restart: unless-stopped
+
+volumes:
+  mlflow_data:

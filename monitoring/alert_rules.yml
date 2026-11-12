@@ -1,0 +1,33 @@
+groups:
+  - name: autoroute
+    rules:
+      - alert: PredictionDrift
+        expr: psi_prediction > 0.25 and drift_buffer_ready == 1
+        for: 30s
+        labels: {severity: warning}
+        annotations: {summary: "Prediction drift: PSI above 0.25"}
+      - alert: DataDriftHighOOV
+        expr: oov_rate > 0.3 and drift_buffer_ready == 1
+        for: 30s
+        labels: {severity: warning}
+        annotations: {summary: "Over 30% of words are unseen in training"}
+      - alert: ComponentDown
+        expr: component_up == 0
+        for: 30s
+        labels: {severity: critical}
+        annotations: {summary: "A component failed its health check"}
+      - alert: SlowPredictions
+        expr: histogram_quantile(0.95, sum(rate(request_latency_seconds_bucket{endpoint="/predict"}[2m])) by (le)) > 0.3
+        for: 1m
+        labels: {severity: warning}
+        annotations: {summary: "p95 /predict latency above 300 ms"}
+      - alert: LowLiveAccuracy
+        expr: feedback_accuracy < 0.7 and feedback_window >= 20
+        for: 1m
+        labels: {severity: warning}
+        annotations: {summary: "Users report accuracy below 70% over the last feedback window"}
+      - alert: GatewayHighMemory
+        expr: process_resident_memory_bytes{job="gateway"} > 800000000
+        for: 2m
+        labels: {severity: warning}
+        annotations: {summary: "Gateway uses more than 800 MB of memory"}

@@ -1,0 +1,40 @@
+=== flake8 ===
+no issues
+
+=== pytest ===
+.....................................                                    [100%]
+=============================== warnings summary ===============================
+venv/lib/python3.12/site-packages/starlette/testclient.py:40
+  /home/vboxuser/autoroute/venv/lib/python3.12/site-packages/starlette/testclient.py:40: DeprecationWarning: The anyio.abc.BlockingPortal alias is deprecated, use anyio.from_thread.BlockingPortal instead.
+    _PortalFactoryType = typing.Callable[[], typing.ContextManager[anyio.abc.BlockingPortal]]
+
+venv/lib/python3.12/site-packages/mlflow/utils/pydantic_utils.py:33
+venv/lib/python3.12/site-packages/mlflow/utils/pydantic_utils.py:33
+venv/lib/python3.12/site-packages/mlflow/utils/pydantic_utils.py:33
+venv/lib/python3.12/site-packages/mlflow/utils/pydantic_utils.py:33
+venv/lib/python3.12/site-packages/mlflow/utils/pydantic_utils.py:33
+  /home/vboxuser/autoroute/venv/lib/python3.12/site-packages/mlflow/utils/pydantic_utils.py:33: PydanticDeprecatedSince212: Using `@model_validator` with mode='after' on a classmethod is deprecated. Instead, use an instance method. See the documentation at https://pydantic.dev/docs/validation/2.14/concepts/validators/#model-after-validator. Deprecated in Pydantic V2.12 to be removed in V3.0.
+    return pydantic_model_validator(mode=mode)(func)
+
+venv/lib/python3.12/site-packages/mlflow/gateway/config.py:454
+  /home/vboxuser/autoroute/venv/lib/python3.12/site-packages/mlflow/gateway/config.py:454: PydanticDeprecatedSince20: Support for class-based `config` is deprecated, use ConfigDict instead. Deprecated in Pydantic V2.0 to be removed in V3.0. See Pydantic V2 Migration Guide at https://errors.pydantic.dev/2.14/migration/
+    class Route(ConfigModel):
+
+venv/lib/python3.12/site-packages/mlflow/types/chat.py:162
+  /home/vboxuser/autoroute/venv/lib/python3.12/site-packages/mlflow/types/chat.py:162: PydanticDeprecatedSince20: `min_items` is deprecated and will be removed, use `min_length` instead. Deprecated in Pydantic V2.0 to be removed in V3.0. See Pydantic V2 Migration Guide at https://errors.pydantic.dev/2.14/migration/
+    stop: Optional[list[str]] = Field(None, min_items=1)
+
+venv/lib/python3.12/site-packages/mlflow/types/chat.py:216
+  /home/vboxuser/autoroute/venv/lib/python3.12/site-packages/mlflow/types/chat.py:216: PydanticDeprecatedSince20: `min_items` is deprecated and will be removed, use `min_length` instead. Deprecated in Pydantic V2.0 to be removed in V3.0. See Pydantic V2 Migration Guide at https://errors.pydantic.dev/2.14/migration/
+    messages: list[ChatMessage] = Field(..., min_items=1)
+
+venv/lib/python3.12/site-packages/mlflow/types/chat.py:217
+  /home/vboxuser/autoroute/venv/lib/python3.12/site-packages/mlflow/types/chat.py:217: PydanticDeprecatedSince20: `min_items` is deprecated and will be removed, use `min_length` instead. Deprecated in Pydantic V2.0 to be removed in V3.0. See Pydantic V2 Migration Guide at https://errors.pydantic.dev/2.14/migration/
+    tools: Optional[list[ChatTool]] = Field(None, min_items=1)
+
+venv/lib/python3.12/site-packages/mlflow/pyfunc/utils/data_validation.py:186
+  /home/vboxuser/autoroute/venv/lib/python3.12/site-packages/mlflow/pyfunc/utils/data_validation.py:186: UserWarning: [33mAdd type hints to the `predict` method to enable data validation and automatic signature inference during model logging. Check https://mlflow.org/docs/latest/model/python_model.html#type-hint-usage-in-pythonmodel for more details.[0m
+    color_warning(
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+37 passed, 11 warnings in 3.02s

@@ -1,0 +1,18 @@
+venv/
+__pycache__/
+*.pyc
+.env
+mlruns/
+.pytest_cache/
+
+# Secrets & local environments
+.env
+venv/
+mlruns/
+.dvc/cache
+
+# Large raw and processed datasets
+data/raw/train/*.csv
+data/raw/production/*.csv
+data/interim/*.parquet
+data/processed/*.parquet

@@ -1,0 +1,72 @@
+{
+  "passed": true,
+  "hard_failures": 0,
+  "rows": 847887,
+  "n_classes": 9,
+  "short_text_share": 0.0017,
+  "duplicate_text_share": 0.2191,
+  "class_imbalance_ratio": 42.3,
+  "median_words": 108.0,
+  "checks": [
+    {
+      "name": "required_columns_present",
+      "passed": true,
+      "value": [],
+      "threshold": [
+        "date",
+        "label",
+        "text"
+      ],
+      "severity": "hard"
+    },
+    {
+      "name": "min_rows",
+      "passed": true,
+      "value": 847887,
+      "threshold": 1000,
+      "severity": "hard"
+    },
+    {
+      "name": "min_classes",
+      "passed": true,
+      "value": 9,
+      "threshold": 2,
+      "severity": "hard"
+    },
+    {
+      "name": "no_null_values",
+      "passed": true,
+      "value": 0.0,
+      "threshold": 0,
+      "severity": "hard"
+    },
+    {
+      "name": "short_text_share",
+      "passed": true,
+      "value": 0.0017,
+      "threshold": 0.2,
+      "severity": "hard"
+    },
+    {
+      "name": "duplicate_text_share",
+      "passed": true,
+      "value": 0.2191,
+      "threshold": 0.3,
+      "severity": "hard"
+    },
+    {
+      "name": "class_imbalance_ratio",
+      "passed": true,
+      "value": 42.3,
+      "threshold": 500,
+      "severity": "warning"
+    },
+    {
+      "name": "unparseable_dates_share",
+      "passed": true,
+      "value": 0.0,
+      "threshold": 0.01,
+      "severity": "warning"
+    }
+  ]
+}

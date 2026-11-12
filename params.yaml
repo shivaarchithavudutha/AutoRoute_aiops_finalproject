@@ -1,0 +1,46 @@
+# All tunable settings live here. DVC tracks changes to these values.
+paths:
+  raw_train_dir: data/raw/train        # unzipped CFPB training CSVs go here
+  raw_prod_dir: data/raw/production    # unzipped 2025/2026 CSVs go here (drift demo)
+  interim: data/interim/clean.parquet
+  train: data/processed/train.parquet
+  test: data/processed/test.parquet
+  baseline: data/processed/baseline.json
+
+ingest:
+  workers: 2                 # Ray/multiprocessing workers (match your VM CPUs)
+  chunk_size: 5000
+
+prepare:
+  min_class_rows: 2000       # classes smaller than this are dropped
+  max_rows_per_class: 25000  # cap big classes so the data stays laptop-sized
+  test_size: 0.2
+  seed: 42
+  vocab_min_count: 3
+  length_sample: 5000
+
+features:
+  max_features: 50000
+  ngram_min: 1
+  ngram_max: 2
+
+train:
+  model_type:  logistic_regression  # logistic_regression | linear_svm | naive_bayes
+  C: 1
+  class_weight: balanced
+
+evaluate:
+  min_macro_f1: 0.75         # acceptance criterion; below this the model is NOT promoted
+
+mlflow:
+  experiment: autoroute
+  model_name: AutoRouteModel
+  alias: champion
+
+validate:                    # data-quality gates (the pipeline stops if a HARD check fails)
+  min_rows: 1000
+  min_classes: 2
+  min_words: 5               # texts shorter than this count as "too short"
+  max_short_share: 0.2
+  max_duplicate_share: 0.3
+  max_imbalance_ratio: 500   # warning only

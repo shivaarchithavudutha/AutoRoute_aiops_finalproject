@@ -1,0 +1,83 @@
+stages:
+  test:                      # CI: PEP8 + unit tests must pass before anything else runs
+    cmd: python scripts/run_checks.py
+    deps:
+      - scripts/run_checks.py
+      - src
+      - gateway
+      - trainer
+      - frontend
+      - tests
+    outs:
+      - reports/test_output.txt:
+          cache: false
+    metrics:
+      - reports/ci_summary.json:
+          cache: false
+  ingest:
+    cmd: python src/ingest.py
+    deps:
+      - src/ingest.py
+      - src/common.py
+      - src/text_utils.py
+      - label_map.yaml
+      - reports/ci_summary.json
+      - data/raw/train
+    params:
+      - ingest
+      - paths
+    outs:
+      - data/interim/clean.parquet
+    metrics:
+      - data/interim/ingest_metrics.json:
+          cache: false
+  validate:                  # data-quality gate
+    cmd: python src/validate_data.py
+    deps:
+      - src/validate_data.py
+      - data/interim/clean.parquet
+    params:
+      - validate
+    metrics:
+      - data/interim/data_quality.json:
+          cache: false
+  prepare:
+    cmd: python src/prepare.py
+    deps:
+      - src/prepare.py
+      - data/interim/clean.parquet
+      - data/interim/data_quality.json
+    params:
+      - prepare
+    outs:
+      - data/processed/train.parquet
+      - data/processed/test.parquet
+      - data/processed/baseline.json
+  train:
+    cmd: python src/train.py
+    deps:
+      - src/train.py
+      - src/model_wrapper.py
+      - data/processed/train.parquet
+      - data/processed/test.parquet
+    params:
+      - features
+      - train
+      - mlflow
+    outs:
+      - models/run_info.json:
+          cache: false
+    metrics:
+      - metrics.json:
+          cache: false
+  evaluate:
+    cmd: python src/evaluate.py
+    deps:
+      - src/evaluate.py
+      - models/run_info.json
+      - metrics.json
+    params:
+      - evaluate
+    metrics:
+      - models/evaluation.json:
+          cache: false

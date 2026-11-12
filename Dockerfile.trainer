@@ -1,0 +1,10 @@
+FROM python:3.10-slim
+RUN apt-get update && apt-get install -y --no-install-recommends git && rm -rf /var/lib/apt/lists/*
+WORKDIR /app
+COPY requirements-trainer.txt .
+RUN pip install --no-cache-dir -r requirements-trainer.txt
+COPY trainer/ /app/trainer/
+# The project repo is mounted at /repo by docker-compose; dvc/git run there.
+ENV REPO_DIR=/repo HOME=/tmp DVC_NO_ANALYTICS=1 PYTHONPATH=/repo/src
+EXPOSE 8100
+CMD ["uvicorn", "trainer.app:app", "--app-dir", "/app", "--host", "0.0.0.0", "--port", "8100"]
