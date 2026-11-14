@@ -92,13 +92,12 @@ Two folders have similar names: **`reports/`** (repository root) holds the CI re
 
 ## Quick start
 
-All commands are run in the repository root. Replace `<your-username>` with the GitHub account that hosts the repository.
-
+All commands are run in the repository root.
 **1. Get the code and install the tools**
 
 ```bash
 git clone https://github.com/shivaarchithavudutha/AutoRoute_aiops_finalproject.git
-cd autoroute
+cd AutoRoute_aiops_finalproject
 python3 -m venv venv
 source venv/bin/activate              # repeat this line in every new terminal
 pip install --upgrade pip
