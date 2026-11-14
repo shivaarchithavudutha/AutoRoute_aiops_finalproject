@@ -24,9 +24,9 @@ stages:
       nfiles: 10
     - path: tests
       hash: md5
-      md5: a954ce707cb3b967148bcf043d2aec4c.dir
-      size: 11139
-      nfiles: 8
+      md5: 8f9514ae1eb782d760e7abbd5f35bb6d.dir
+      size: 18625
+      nfiles: 9
     - path: trainer
       hash: md5
       md5: 7b202e46847029045425d635f4f05331.dir
@@ -35,12 +35,12 @@ stages:
     outs:
     - path: reports/ci_summary.json
       hash: md5
-      md5: 994e68b7b48bf90055716633ee7c2c15
+      md5: 003a0d977e56a65ad4b95d40981b315e
       size: 108
     - path: reports/test_output.txt
       hash: md5
-      md5: e4bb382525255fbdd13b6b43ce03fc84
-      size: 3634
+      md5: 4817e2d4f3de8bf93743a99aab8e9bbf
+      size: 3589
   ingest:
     cmd: python src/ingest.py
     deps:
@@ -55,7 +55,7 @@ stages:
       size: 1027
     - path: reports/ci_summary.json
       hash: md5
-      md5: 994e68b7b48bf90055716633ee7c2c15
+      md5: 003a0d977e56a65ad4b95d40981b315e
       size: 108
     - path: src/common.py
       hash: md5
@@ -88,8 +88,8 @@ stages:
       size: 328749433
     - path: data/interim/ingest_metrics.json
       hash: md5
-      md5: cef7f8c057b5d4a25e0fac7027275394
-      size: 294
+      md5: 6bf805e6480efd3bcd210044d7e585ec
+      size: 291
   validate:
     cmd: python src/validate_data.py
     deps:

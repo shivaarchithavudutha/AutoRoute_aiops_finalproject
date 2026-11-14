@@ -3,10 +3,10 @@
   "rows_kept": 847887,
   "workers": 2,
   "bench_rows": 50000,
-  "single_rows_per_sec": 25454.5,
-  "multiprocessing_rows_per_sec": 26620.4,
-  "ray_rows_per_sec": 37231.6,
-  "ray_speedup_vs_single": 1.46,
-  "ray_full_seconds": 18.93,
-  "ray_full_rows_per_sec": 44786.0
+  "single_rows_per_sec": 7523.2,
+  "multiprocessing_rows_per_sec": 638.8,
+  "ray_rows_per_sec": 25399.0,
+  "ray_speedup_vs_single": 3.38,
+  "ray_full_seconds": 125.01,
+  "ray_full_rows_per_sec": 6782.7
 }

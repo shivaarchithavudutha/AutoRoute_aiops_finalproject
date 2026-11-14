@@ -28,7 +28,7 @@ The architecture diagram is in document 1. Three data flows matter.
 
 **(c) A drift alert.** Every prediction updates a rolling window of the last 100 requests in the gateway. When at least 50 requests are in the window, the gateway computes the population stability index (PSI), the unknown-word rate and a KS test on the text length. Prometheus scrapes these gauges every 5 seconds; when PSI stays above 0.25 for 30 seconds the alert `PredictionDrift` fires. The engineer then decides to retrain.
 
-![Figure 1 - From drift alert to retraining and automatic switch-over](screenshots/retrain_flow.png)
+![Figure 1 - From drift alert to retraining and automatic switch-over](diagrams/retrain_flow.png)
 
 
 ## 4. Technology choices and why

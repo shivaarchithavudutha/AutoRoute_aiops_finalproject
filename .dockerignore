@@ -1,0 +1,8 @@
+data/
+.git/
+.dvc/cache/
+venv/
+__pycache__/
+mlruns/
+mlflow.db
+*.parquet

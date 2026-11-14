@@ -98,7 +98,7 @@ A job has the states `running`, `success` or `failed`; a non-zero exit code of a
 
 ## 6. Sequence of `/predict`
 
-![Figure 1 - Sequence diagram of POST /predict](screenshots/sequence_predict.png)
+![Figure 1 - Sequence diagram of POST /predict](diagrams/sequence_predict.png)
 
 
 ## 7. Configuration (environment variables)

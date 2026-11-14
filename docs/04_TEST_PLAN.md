@@ -102,33 +102,33 @@ Warnings in the pytest output come from third-party packages (deprecation notice
 
 ## 6. Evidence (screenshots from the running system)
 
-![Figure 1 - Portal, Classify page with the example complaint, suggested team and confidence](<screenshots/Screenshot From 2026-11-14 16-56-40.png>)
+![Figure 1 - Portal, Classify page with the example complaint, suggested team and confidence](screenshots/portal_classify_input.png)
 
-![Figure 2 - Portal, top 3 guesses, "Why this category?" and the Yes/No feedback buttons](<screenshots/Screenshot From 2026-11-14 16-56-46.png>)
+![Figure 2 - Portal, top 3 guesses, "Why this category?" and the Yes/No feedback buttons](screenshots/portal_classify_result_feedback.png)
 
-![Figure 3 - Pipeline console with two failed jobs, the error in the latest job log and the MLflow training runs (test T13)](<screenshots/Screenshot From 2026-11-14 17-03-35.png>)
+![Figure 3 - Pipeline console with two failed jobs, the error in the latest job log and the MLflow training runs (test T13)](screenshots/portal_pipeline_console_failed_jobs.png)
 
-![Figure 4 - Pipeline console after the fix: one successful job, ingest benchmark chart and data-quality / test summary (test T12)](<screenshots/Screenshot From 2026-11-14 17-07-25.png>)
+![Figure 4 - Pipeline console after the fix: one successful job, ingest benchmark chart and data-quality / test summary (test T12)](screenshots/portal_pipeline_console_success_job.png)
 
-![Figure 5 - Health and drift page: all components Up and PSI 2.317 marked significant (tests T07, T11)](<screenshots/Screenshot From 2026-11-14 16-54-12.png>)
+![Figure 5 - Health and drift page: all components Up and PSI 2.317 marked significant (tests T07, T11)](screenshots/portal_health_and_drift.png)
 
-![Figure 6 - Grafana during the drift demo: prediction drift (PSI) above the red threshold line, unknown-word rate and KS p-value (test T11)](<screenshots/Screenshot From 2026-11-14 16-52-22.png>)
+![Figure 6 - Grafana during the drift demo: prediction drift (PSI) above the red threshold line, unknown-word rate and KS p-value (test T11)](screenshots/grafana_dashboard_drift_demo.png)
 
-![Figure 7 - Grafana, later in the drift demo, PSI of 2.79 at 16:53 and rising low-confidence predictions (test T11)](<screenshots/Screenshot From 2026-11-14 16-53-32.png>)
+![Figure 7 - Grafana, later in the drift demo, PSI of 2.79 at 16:53 and rising low-confidence predictions (test T11)](screenshots/grafana_psi_peak.png)
 
-![Figure 8 - Prometheus alerts: PredictionDrift is firing, the other five rules are inactive (test T11)](<screenshots/Screenshot From 2026-11-14 16-51-26.png>)
+![Figure 8 - Prometheus alerts: PredictionDrift is firing, the other five rules are inactive (test T11)](screenshots/prometheus_alert_prediction_drift_firing.png)
 
-![Figure 9 - Prometheus targets: gateway, prometheus and trainer are up (test T08)](<screenshots/Screenshot From 2026-11-14 16-55-20.png>)
+![Figure 9 - Prometheus targets: gateway, prometheus and trainer are up (test T08)](screenshots/prometheus_targets_up.png)
 
-![Figure 10 - Terminal: output of dvc dag with the six stages (test T14)](<screenshots/Screenshot From 2026-11-12 17-07-45.png>)
+![Figure 10 - Terminal: output of dvc dag with the six stages (test T14)](screenshots/dvc_dag_and_metrics.png)
 
-![Figure 11 - MLflow model registry: AutoRouteModel versions, alias champion on version 13 (test T17)](<screenshots/Screenshot From 2026-11-14 16-56-14.png>)
+![Figure 11 - MLflow model registry: AutoRouteModel versions, alias champion on version 13 (test T17)](screenshots/mlflow_model_registry_champion.png)
 
-![Figure 12 - MLflow experiment list: 11 runs of logistic regression, linear SVM and naive Bayes (test T19)](<screenshots/Screenshot From 2026-11-12 18-25-40.png>)
+![Figure 12 - MLflow experiment list: 11 runs of logistic regression, linear SVM and naive Bayes (test T19)](screenshots/mlflow_experiment_runs_list.png)
 
-![Figure 13 - MLflow compare view of six runs: parameters and metrics (test T19)](<screenshots/Screenshot From 2026-11-12 18-25-27.png>)
+![Figure 13 - MLflow compare view of six runs: parameters and metrics (test T19)](screenshots/mlflow_compare_runs_per_class_f1.png)
 
-![Figure 14 - Latency check: 200 requests, p95 12.9 ms (test T21)](<screenshots/Screenshot From 2026-11-14 17-14-06.png>)
+![Figure 14 - Latency check: 200 requests, p95 12.9 ms (test T21)](screenshots/terminal_latency_check.png)
 
 
 ## 7. Observations and defects found during testing

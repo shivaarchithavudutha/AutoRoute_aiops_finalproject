@@ -6,7 +6,7 @@ AutoRoute reads a customer complaint written as free text and suggests which pro
 
 ## 2. Architecture diagram
 
-![Figure 1 - AutoRoute system architecture. Solid arrows are REST calls or data flow; dashed arrows are Prometheus scrapes.](screenshots/architecture.png)
+![Figure 1 - AutoRoute system architecture. Solid arrows are REST calls or data flow; dashed arrows are Prometheus scrapes.](diagrams/architecture.png)
 
 ## 3. Services and ports
 
@@ -67,6 +67,6 @@ All services run on one machine (an Ubuntu virtual machine) under Docker Compose
 
 The output of `dvc dag` and `dvc metrics show` from the project virtual machine is shown below. The graph has the six stages in the order described above; the metrics table lists the values recorded by each stage.
 
-![Figure 2 - Terminal output of dvc dag and dvc metrics show](<screenshots/Screenshot From 2026-11-12 17-07-45.png>)
+![Figure 2 - Terminal output of dvc dag and dvc metrics show](screenshots/dvc_dag_and_metrics.png)
 
 
