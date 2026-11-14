@@ -1,0 +1,80 @@
+============================= test session starts ==============================
+platform linux -- Python 3.12.16, pytest-8.3.4, pluggy-1.7.0 -- /home/vboxuser/autoroute/venv/bin/python
+cachedir: .pytest_cache
+rootdir: /home/vboxuser/autoroute
+plugins: anyio-4.16.0, hydra-core-1.3.8, platformdirs-4.14.5
+collecting ... collected 37 items
+
+tests/test_drift.py::test_psi_zero_for_identical_distribution PASSED     [  2%]
+tests/test_drift.py::test_psi_large_for_shifted_distribution PASSED      [  5%]
+tests/test_drift.py::test_psi_handles_empty_class_without_error PASSED   [  8%]
+tests/test_drift.py::test_buffer_not_ready_until_min_buffer PASSED       [ 10%]
+tests/test_drift.py::test_oov_rate_counts_unknown_words PASSED           [ 13%]
+tests/test_drift.py::test_disabled_without_baseline PASSED               [ 16%]
+tests/test_feedback_explain.py::test_feedback_tracker_rolling_accuracy PASSED [ 18%]
+tests/test_feedback_explain.py::test_feedback_endpoint PASSED            [ 21%]
+tests/test_feedback_explain.py::test_feedback_endpoint_validation PASSED [ 24%]
+tests/test_feedback_explain.py::test_explain_returns_matched_terms PASSED [ 27%]
+tests/test_feedback_explain.py::test_explain_unavailable_returns_503 PASSED [ 29%]
+tests/test_feedback_explain.py::test_auto_retrain_respects_flag_and_cooldown PASSED [ 32%]
+tests/test_feedback_explain.py::test_wrapper_decrypts_encrypted_model PASSED [ 35%]
+tests/test_gateway.py::test_predict_ok PASSED                            [ 37%]
+tests/test_gateway.py::test_predict_empty_text_rejected PASSED           [ 40%]
+tests/test_gateway.py::test_predict_too_long_rejected PASSED             [ 43%]
+tests/test_gateway.py::test_predict_missing_field_rejected PASSED        [ 45%]
+tests/test_gateway.py::test_model_server_down_returns_503 PASSED         [ 48%]
+tests/test_gateway.py::test_api_key_enforced PASSED                      [ 51%]
+tests/test_gateway.py::test_metrics_endpoint_exposes_custom_metrics PASSED [ 54%]
+tests/test_gateway.py::test_health_degraded_when_services_down PASSED    [ 56%]
+tests/test_gateway.py::test_pipeline_trigger_rejects_bad_action PASSED   [ 59%]
+tests/test_gateway.py::test_pipeline_status_503_when_trainer_down PASSED [ 62%]
+tests/test_prepare_and_labels.py::test_map_label_known_and_unknown PASSED [ 64%]
+tests/test_prepare_and_labels.py::test_baseline_contents PASSED          [ 67%]
+tests/test_text_utils.py::test_lowercases_and_strips_punctuation PASSED  [ 70%]
+tests/test_text_utils.py::test_removes_redaction_tokens PASSED           [ 72%]
+tests/test_text_utils.py::test_collapses_whitespace PASSED               [ 75%]
+tests/test_text_utils.py::test_none_and_empty PASSED                     [ 78%]
+tests/test_text_utils.py::test_idempotent PASSED                         [ 81%]
+tests/test_text_utils.py::test_tokens PASSED                             [ 83%]
+tests/test_validate_data.py::test_good_data_passes PASSED                [ 86%]
+tests/test_validate_data.py::test_too_few_rows_fails PASSED              [ 89%]
+tests/test_validate_data.py::test_single_class_fails PASSED              [ 91%]
+tests/test_validate_data.py::test_many_duplicates_fail PASSED            [ 94%]
+tests/test_validate_data.py::test_missing_columns_reported PASSED        [ 97%]
+tests/test_wrapper.py::test_wrapper_returns_probability_dataframe PASSED [100%]
+
+=============================== warnings summary ===============================
+venv/lib/python3.12/site-packages/starlette/testclient.py:40
+  /home/vboxuser/autoroute/venv/lib/python3.12/site-packages/starlette/testclient.py:40: DeprecationWarning: The anyio.abc.BlockingPortal alias is deprecated, use anyio.from_thread.BlockingPortal instead.
+    _PortalFactoryType = typing.Callable[[], typing.ContextManager[anyio.abc.BlockingPortal]]
+
+venv/lib/python3.12/site-packages/mlflow/utils/pydantic_utils.py:33
+venv/lib/python3.12/site-packages/mlflow/utils/pydantic_utils.py:33
+venv/lib/python3.12/site-packages/mlflow/utils/pydantic_utils.py:33
+venv/lib/python3.12/site-packages/mlflow/utils/pydantic_utils.py:33
+venv/lib/python3.12/site-packages/mlflow/utils/pydantic_utils.py:33
+  /home/vboxuser/autoroute/venv/lib/python3.12/site-packages/mlflow/utils/pydantic_utils.py:33: PydanticDeprecatedSince212: Using `@model_validator` with mode='after' on a classmethod is deprecated. Instead, use an instance method. See the documentation at https://pydantic.dev/docs/validation/2.14/concepts/validators/#model-after-validator. Deprecated in Pydantic V2.12 to be removed in V3.0.
+    return pydantic_model_validator(mode=mode)(func)
+
+venv/lib/python3.12/site-packages/mlflow/gateway/config.py:454
+  /home/vboxuser/autoroute/venv/lib/python3.12/site-packages/mlflow/gateway/config.py:454: PydanticDeprecatedSince20: Support for class-based `config` is deprecated, use ConfigDict instead. Deprecated in Pydantic V2.0 to be removed in V3.0. See Pydantic V2 Migration Guide at https://errors.pydantic.dev/2.14/migration/
+    class Route(ConfigModel):
+
+venv/lib/python3.12/site-packages/mlflow/types/chat.py:162
+  /home/vboxuser/autoroute/venv/lib/python3.12/site-packages/mlflow/types/chat.py:162: PydanticDeprecatedSince20: `min_items` is deprecated and will be removed, use `min_length` instead. Deprecated in Pydantic V2.0 to be removed in V3.0. See Pydantic V2 Migration Guide at https://errors.pydantic.dev/2.14/migration/
+    stop: Optional[list[str]] = Field(None, min_items=1)
+
+venv/lib/python3.12/site-packages/mlflow/types/chat.py:216
+  /home/vboxuser/autoroute/venv/lib/python3.12/site-packages/mlflow/types/chat.py:216: PydanticDeprecatedSince20: `min_items` is deprecated and will be removed, use `min_length` instead. Deprecated in Pydantic V2.0 to be removed in V3.0. See Pydantic V2 Migration Guide at https://errors.pydantic.dev/2.14/migration/
+    messages: list[ChatMessage] = Field(..., min_items=1)
+
+venv/lib/python3.12/site-packages/mlflow/types/chat.py:217
+  /home/vboxuser/autoroute/venv/lib/python3.12/site-packages/mlflow/types/chat.py:217: PydanticDeprecatedSince20: `min_items` is deprecated and will be removed, use `min_length` instead. Deprecated in Pydantic V2.0 to be removed in V3.0. See Pydantic V2 Migration Guide at https://errors.pydantic.dev/2.14/migration/
+    tools: Optional[list[ChatTool]] = Field(None, min_items=1)
+
+venv/lib/python3.12/site-packages/mlflow/pyfunc/utils/data_validation.py:186
+  /home/vboxuser/autoroute/venv/lib/python3.12/site-packages/mlflow/pyfunc/utils/data_validation.py:186: UserWarning: [33mAdd type hints to the `predict` method to enable data validation and automatic signature inference during model logging. Check https://mlflow.org/docs/latest/model/python_model.html#type-hint-usage-in-pythonmodel for more details.[0m
+    color_warning(
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+======================= 37 passed, 11 warnings in 3.09s ========================
