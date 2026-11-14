@@ -98,7 +98,7 @@ All commands are run in the repository root.
 ```bash
 git clone https://github.com/shivaarchithavudutha/AutoRoute_aiops_finalproject.git
 cd AutoRoute_aiops_finalproject
-python3 -m venv venv
+python3.12 -m venv venv
 source venv/bin/activate              # repeat this line in every new terminal
 pip install --upgrade pip
 pip install -r requirements.txt       # 5-15 minutes; versions are pinned on purpose
