@@ -255,5 +255,6 @@ Tools: DVC, Ray, MLflow, FastAPI, Streamlit, scikit-learn, Prometheus, Grafana, 
 
 ## AI assistance disclosure
 
-An AI assistant (Claude, by Anthropic) helped plan the project and draft parts of the code, tests and documents.
-The author ran, tested and reviewed everything; all results, screenshots and numbers come from the author's own runs.
+AI assistants (Claude, Gemini) helped plan the project and draft parts of the code, and documents.
+They were also used in debugging and help me when I was stuck.
+I ran, tested everything; all results, screenshots and numbers come from my own runs.
