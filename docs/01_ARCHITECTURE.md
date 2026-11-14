@@ -6,7 +6,7 @@ AutoRoute reads a customer complaint written as free text and suggests which pro
 
 ## 2. Architecture diagram
 
-![Figure 1 - AutoRoute system architecture. Solid arrows are REST calls or data flow; dashed arrows are Prometheus scrapes.](architecture.png)
+![Figure 1 - AutoRoute system architecture. Solid arrows are REST calls or data flow; dashed arrows are Prometheus scrapes.](screenshots/architecture.png)
 
 ## 3. Services and ports
 
