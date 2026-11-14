@@ -257,3 +257,7 @@ Tools: DVC, Ray, MLflow, FastAPI, Streamlit, scikit-learn, Prometheus, Grafana, 
 AI assistants (Claude, Gemini) helped plan the project and draft parts of the code, and documents.
 They were also used in debugging and help me when I was stuck.
 I ran, tested everything; all results, screenshots and numbers come from my own runs.
+
+## Demo video link
+
+*5-Minute Walkthrough Video:** [Watch Demo Video](https://drive.google.com/file/d/1iu_ToHodXHzyaeL4IO3zW0FO8A2nYWFN/view?usp=sharing)
