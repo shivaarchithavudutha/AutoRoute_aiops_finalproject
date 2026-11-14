@@ -1,5 +1,6 @@
 FROM python:3.10-slim
 RUN apt-get update && apt-get install -y --no-install-recommends git && rm -rf /var/lib/apt/lists/*
+RUN groupadd -g 1000 trainer && useradd -u 1000 -g 1000 -m trainer
 WORKDIR /app
 COPY requirements-trainer.txt .
 RUN pip install --no-cache-dir -r requirements-trainer.txt
